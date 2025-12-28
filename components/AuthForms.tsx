@@ -10,23 +10,23 @@ import Link from "next/link";
 // import FormField from "./FormField"
 
 import { Button } from "@/components/ui/button"
-import {Form} from "@/components/ui/form"
+import { Form } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 
 import React from 'react'
 import FormField from "./FormField"
 import { useRouter } from "next/navigation"
 
-const authFormSchema = (type : FormType) =>{
+const authFormSchema = (type: FormType) => {
    // Z comes from Zod, a schema validation library.
    return z.object({
-      name : type === 'sign-up' ? z.string().min(3) : z.string().optional(),
-      email : z.string().email(),
+      name: type === 'sign-up' ? z.string().min(3) : z.string().optional(),
+      email: z.string().email(),
       password: z.string().min(3),
    })
 }
 
-const AuthForms = ({type} : {type : FormType}) => {
+const AuthForms = ({ type }: { type: FormType }) => {
    const router = useRouter();
    const formSchema = authFormSchema(type);
    const form = useForm<z.infer<typeof formSchema>>({
@@ -38,21 +38,25 @@ const AuthForms = ({type} : {type : FormType}) => {
       },
    })
 
-   function onSubmit(values: z.infer<typeof formSchema>) {
-      try{
-         if(type === 'sign-up'){
+   async function onSubmit(values: z.infer<typeof formSchema>) {
+      try {
+         if (type === 'sign-up') {
             toast.success('Account created successfully. Please sign in.');
-            router.push('/sign-in');
-         }else{
+            setTimeout(() => {
+               router.replace("/sign-in");
+            }, 1500);
+         } else {
             toast.success('Sign in successfully');
-            router.push('/');
+            setTimeout(() => {
+               router.replace("/");
+            }, 1500);
          }
 
-      } catch(error){
-         toast.error('There was an error: ${error}');
+      } catch (error) {
+         toast.error('There was an error: ${string(error)}');
          // A toast is a small, temporary notification that pops up on the screen to give feedback.
       }
-      
+
    }
 
    const isSignIn = type === "sign-in";
@@ -69,13 +73,13 @@ const AuthForms = ({type} : {type : FormType}) => {
             <Form {...form}>
                <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6 mt-4 form">
                   {!isSignIn && (
-                     <FormField control= {form.control} name= "Name:" lable = "name" placeholder = "Enter Your Name" />
+                     <FormField control={form.control} name="Name:" lable="name" placeholder="Enter Your Name" />
                   )}
-                  <FormField control= {form.control} name= "Email:" lable = "Email" placeholder = "Email" />
+                  <FormField control={form.control} name="Email:" lable="Email" placeholder="Email" />
 
-                  <FormField control= {form.control} name= "Password:" lable = "Password" placeholder = "Password" type= 'password' />
-                  
-               {/* <FormField/> */}
+                  <FormField control={form.control} name="Password:" lable="Password" placeholder="Password" type='password' />
+
+                  {/* <FormField/> */}
 
                   <Button className="btn" type="submit">{isSignIn ? 'Sign In' : 'Create an Account'}</Button>
                </form>
@@ -84,7 +88,7 @@ const AuthForms = ({type} : {type : FormType}) => {
                   <Link href={isSignIn ? './sign-up' : './sign-in'} className="font-bold text-user-primary ml-1"> {isSignIn ? 'Sign up' : 'Sign in'}</Link>
                </p>
 
-               
+
             </Form>
          </div>
       </div>
@@ -92,3 +96,5 @@ const AuthForms = ({type} : {type : FormType}) => {
 }
 
 export default AuthForms
+
+
