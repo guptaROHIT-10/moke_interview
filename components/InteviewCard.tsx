@@ -44,7 +44,7 @@ const InteviewCard = ({interviewID, userID, role, type, techstack, createdAt} : 
               <DisplayTechIcons techStack={techstack} />
             </div> */}
 
-            <div className='flex flex-row gap-1 mt-5'>
+            <div className='flex flex-row gap-1 rounded-full p-2'>
               <img src="/react.svg" alt="react_logo"/>
               <img src="/tailwind.svg" alt="tailwind_logo" />
               <img src="/mongodb.svg" alt="mongodb" style={{ width: 24, height: 24 }} />
