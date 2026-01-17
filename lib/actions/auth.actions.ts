@@ -11,7 +11,7 @@ export async function signUp(params: SignUpParams) {
   const { uid, name, email } = params;
 
   try {
-      const userRecord = await db.collection('users').doc(uid).get();
+      const userRecord = await db.collection('users').doc(uid).get();   //1 mistake
 
       if(userRecord.exists){
          return{
@@ -62,7 +62,7 @@ export async function signUp(params: SignUpParams) {
 export async function signIn(params: SignInParams) {
    const {email, idToken} = params;
    try {
-      const userRecord = await auth.getUserByEmail(email);
+      const userRecord = await auth.getUserByEmail(email);     //2 mistake
 
       if(!userRecord){
          return{
@@ -102,4 +102,36 @@ export async function setSessionCookies(idToken: string) {
       path: '/',     //Cookie is sent for all routes
       sameSite: 'lax'
    })
+}
+
+
+//4
+export async function getCurrentuser(): Promise<null | User> {
+   const cookieStore = await cookies();
+
+   const sessionCookies = cookieStore.get('session')?.value;
+
+   if(!sessionCookies) return null;
+
+   try {
+      const decodeClaims = await auth.verifySessionCookie(sessionCookies, true);
+
+      const userecord = await db.collection('users').doc(decodeClaims.uid).get();
+
+      if(!userecord) return null;
+      return{
+         ...userecord.data(),
+         id: userecord.id,
+      } as User;
+   } catch (e) {
+      console.log(e);
+      return null;
+   }
+}
+
+//5
+export async function isAuthenticated() {
+   const user = await getCurrentuser();
+
+   return !!user;
 }

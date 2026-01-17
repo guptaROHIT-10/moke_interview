@@ -6,11 +6,11 @@ const initialFirebseAdmin = () => {
    const apps = getApps();
 
    if(apps.length === 0) {
-      initializeApp({
+         initializeApp({
          credential: cert({
             projectId: process.env.FIREBASE_PROJECT_ID,
             clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-            privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
+            privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
 
 //That \n is NOT a newline.
 //It’s just two characters: backslash + n.
@@ -20,9 +20,9 @@ const initialFirebseAdmin = () => {
 //    n → the letter n
 //    /g → global (replace all occurrences)
 
-         })
-      })
-   }
+         }),
+      });
+   }          
 
    return{
       auth : getAuth(),
