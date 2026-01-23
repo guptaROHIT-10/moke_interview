@@ -16,7 +16,7 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
         </Link>
       </nav>
       {children}
-    </div>
+    </div> 
   );
 };
 

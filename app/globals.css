@@ -217,7 +217,8 @@
     }
 
     .card-interviewer {
-      @apply flex-center flex-col gap-2 p-7 h-[400px] blue-gradient-dark rounded-lg border-2 border-primary-200/50 flex-1 sm:basis-1/2 w-full;
+      @apply flex-center flex-col gap-2 p-7 h-[400px] blue-gradient-dark rounded-lg border-2 border-primary-200/50 flex-1 sm:basis-1/2 w-full transition
+  hover:shadow-[0_0_40px_rgba(200,180,255,0.4)];
     }
 
     .avatar {
@@ -233,8 +234,10 @@
     }
 
     .card-content {
-      @apply flex flex-col gap-2 justify-center items-center p-7 dark-gradient rounded-2xl min-h-full;
+      @apply flex flex-col gap-2 justify-center items-center p-7 dark-gradient rounded-2xl min-h-full transition
+  hover:shadow-[0_0_40px_rgba(200,180,255,0.4)];
     }
+    
   }
 
   .transcript-border {
