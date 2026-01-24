@@ -11,7 +11,7 @@ export async function signUp(params: SignUpParams) {
   const { uid, name, email } = params;
 
   try {
-      const userRecord = await db.collection('users').doc(uid).get();   //1 mistake
+      const userRecord = await db.collection('users').doc(uid).get();
 
       if(userRecord.exists){
          return{
