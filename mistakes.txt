@@ -1,0 +1,15 @@
+👉1. Mistake - 01 :-
+
+Please check your .env.local file - it should NOT have:
+Spaces around the =
+ no commas after keys,
+Quotes around the value
+
+ex:- 
+➡️WRONG FORMATE--->
+GOOGLE_GENERATIVE_AI_API_KEY = "XXXXXXXX",
+➡️RIGHT FORMATE---->
+GOOGLE_GENERATIVE_AI_API_KEY=your_actual_key_here
+
+
+👉2. Mistake - 02 :-
